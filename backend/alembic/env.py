@@ -1,6 +1,6 @@
 """
 Alembic env.py — Database migration configuration.
-Configured for async SQLAlchemy with PostgreSQL.
+Configured for async SQLAlchemy with MySQL.
 """
 
 import asyncio

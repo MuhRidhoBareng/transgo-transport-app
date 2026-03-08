@@ -15,8 +15,8 @@ class Settings(BaseSettings):
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
 
-    # Database (PostgreSQL)
-    DATABASE_URL: str = "postgresql+asyncpg://admin:password@localhost:5432/transport_mvp"
+    # Database (MySQL / XAMPP)
+    DATABASE_URL: str = "mysql+aiomysql://root:@localhost:3306/transport_mvp"
 
     # JWT Auth
     JWT_SECRET_KEY: str = "super-secret-key-change-in-production"

@@ -1,6 +1,6 @@
 """
 Database Engine & Session
-Async SQLAlchemy dengan asyncpg driver untuk PostgreSQL.
+Async SQLAlchemy dengan aiomysql driver untuk MySQL (XAMPP).
 """
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker

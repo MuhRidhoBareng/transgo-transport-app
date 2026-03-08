@@ -8,8 +8,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum as PyEnum
 
-from sqlalchemy import String, Float, DateTime, Enum, ForeignKey, Numeric, Text, func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import String, Float, DateTime, Enum, ForeignKey, Numeric, Text, func, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -36,7 +35,7 @@ class Order(Base):
     __tablename__ = "orders"
 
     id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        Uuid,
         primary_key=True,
         default=uuid.uuid4,
     )
@@ -50,12 +49,12 @@ class Order(Base):
 
     # Relasi user
     passenger_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        Uuid,
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
     )
     driver_id: Mapped[uuid.UUID | None] = mapped_column(
-        UUID(as_uuid=True),
+        Uuid,
         ForeignKey("users.id", ondelete="SET NULL"),
         nullable=True,
     )
