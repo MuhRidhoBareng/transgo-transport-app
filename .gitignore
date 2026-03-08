@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+*.env.local
+
+# Firebase credentials
+firebase-credentials.json
+*-firebase-adminsdk-*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.gemini/
+
+# Node modules
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Alembic
+alembic/versions/*.py
+!alembic/versions/.gitkeep
+
+# Uploads (user uploaded files)
+uploads/

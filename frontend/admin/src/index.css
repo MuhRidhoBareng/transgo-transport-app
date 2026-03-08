@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0F1117;
+  color: #fff;
+}
+
+/* ===== Glassmorphism ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(26, 29, 46, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Bottom Sheet ===== */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 24px 24px 0 0;
+  max-height: 85vh;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.bottom-sheet::-webkit-scrollbar {
+  display: none;
+}
+
+.bottom-sheet-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 12px auto 8px;
+}
+
+/* ===== Gradient Buttons ===== */
+.btn-primary {
+  @apply px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200;
+  background: linear-gradient(135deg, #7C3AED, #3B82F6);
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-kurir {
+  @apply px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200;
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+}
+
+.btn-kurir:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.btn-kurir:active {
+  transform: scale(0.98);
+}
+
+.btn-success {
+  @apply px-6 py-3.5 rounded-xl font-semibold text-white transition-all duration-200;
+  background: linear-gradient(135deg, #10B981, #059669);
+}
+
+.btn-danger {
+  @apply px-6 py-3.5 rounded-xl font-semibold transition-all duration-200;
+  @apply border border-red-500 text-red-400 bg-transparent;
+}
+
+.btn-danger:hover {
+  @apply bg-red-500/10;
+}
+
+/* ===== Input ===== */
+.input-dark {
+  @apply w-full px-4 py-3 rounded-xl bg-dark-secondary border border-dark-border text-white placeholder-txt-muted;
+  @apply focus:outline-none focus:border-accent-purple focus:ring-1 focus:ring-accent-purple/50;
+  @apply transition-all duration-200;
+}
+
+.input-dark:-webkit-autofill,
+.input-dark:-webkit-autofill:hover,
+.input-dark:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1A1D2E inset !important;
+  -webkit-text-fill-color: #fff !important;
+  border-color: #2A2E45 !important;
+  caret-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ===== Map ===== */
+.leaflet-container {
+  background: #0F1117 !important;
+  z-index: 1;
+}
+
+.leaflet-tile-pane {
+  filter: brightness(0.7) contrast(1.1) saturate(0.8);
+}
+
+/* ===== Skeleton Loading ===== */
+.skeleton {
+  background: linear-gradient(90deg, #1A1D2E 25%, #2A2E45 50%, #1A1D2E 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+/* ===== Service Badge ===== */
+.badge-ojek {
+  @apply px-3 py-1 rounded-full text-xs font-semibold bg-accent-purple/20 text-accent-purple;
+}
+
+.badge-kurir {
+  @apply px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400;
+}
+
+/* ===== Notification Pulse ===== */
+.pulse-ring {
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 0 20px rgba(124, 58, 237, 0);
+  }
+}
+
+/* Hide scrollbar globally */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

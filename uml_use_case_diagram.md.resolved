@@ -1,0 +1,142 @@
+# UML Use Case Diagram — Sistem Pemesanan Transportasi
+
+## Diagram Utama
+
+```mermaid
+graph LR
+    subgraph Actors
+        PNP["🧑 Penumpang"]
+        DRV["🚗 Pengemudi"]
+        ADM["🖥️ Admin"]
+    end
+
+    subgraph "Sistem Pemesanan Transportasi"
+
+        subgraph "Otentikasi"
+            UC1["Registrasi Akun"]
+            UC2["Login"]
+        end
+
+        subgraph "Fitur Penumpang"
+            UC3["Memasukkan Titik Jemput & Tujuan"]
+            UC4["Melihat Estimasi Tarif"]
+            UC5["Memesan Perjalanan"]
+            UC6["Melacak Posisi Pengemudi Real-Time"]
+            UC7["Melihat Riwayat Pesanan"]
+            UC8["Membatalkan Pesanan"]
+        end
+
+        subgraph "Fitur Pengemudi"
+            UC9["Toggle Status Online/Offline"]
+            UC10["Menerima Notifikasi Pesanan"]
+            UC11["Menerima/Menolak Pesanan"]
+            UC12["Navigasi ke Titik Jemput"]
+            UC13["Memulai Perjalanan"]
+            UC14["Menyelesaikan Perjalanan"]
+            UC15["Melihat Saldo & Mutasi"]
+            UC16["Mengirim Lokasi GPS Real-Time"]
+        end
+
+        subgraph "Fitur Admin"
+            UC17["Mengelola Data Pengemudi"]
+            UC18["Top-up Saldo Pengemudi"]
+            UC19["Suspend/Aktifkan Pengemudi"]
+            UC20["Monitoring Pesanan Real-Time"]
+            UC21["Melihat Log Mutasi Saldo"]
+            UC22["Melihat Statistik Dashboard"]
+        end
+
+        subgraph "Proses Sistem Otomatis"
+            UC23["Kalkulasi Harga Otomatis"]
+            UC24["Broadcast Pesanan ke Pengemudi Terdekat"]
+            UC25["Potong Komisi dari Saldo Pengemudi"]
+            UC26["Blokir Go-Online jika Saldo Rp 0"]
+        end
+    end
+
+    PNP --- UC1
+    PNP --- UC2
+    PNP --- UC3
+    PNP --- UC4
+    PNP --- UC5
+    PNP --- UC6
+    PNP --- UC7
+    PNP --- UC8
+
+    DRV --- UC1
+    DRV --- UC2
+    DRV --- UC9
+    DRV --- UC10
+    DRV --- UC11
+    DRV --- UC12
+    DRV --- UC13
+    DRV --- UC14
+    DRV --- UC15
+    DRV --- UC16
+
+    ADM --- UC2
+    ADM --- UC17
+    ADM --- UC18
+    ADM --- UC19
+    ADM --- UC20
+    ADM --- UC21
+    ADM --- UC22
+
+    UC5 -.->|include| UC23
+    UC5 -.->|include| UC24
+    UC14 -.->|include| UC25
+    UC9 -.->|extend| UC26
+```
+
+---
+
+## Detail Use Case per Aktor
+
+### 🧑 Penumpang (Passenger)
+
+| # | Use Case | Deskripsi |
+|---|----------|-----------|
+| UC1 | Registrasi Akun | Mendaftar dengan nama, nomor HP, dan PIN |
+| UC2 | Login | Masuk menggunakan nomor HP + PIN |
+| UC3 | Memasukkan Titik Jemput & Tujuan | Memilih lokasi di peta atau ketik alamat |
+| UC4 | Melihat Estimasi Tarif | Sistem menampilkan perkiraan harga berdasarkan jarak |
+| UC5 | Memesan Perjalanan | Konfirmasi pemesanan, sistem mencari pengemudi |
+| UC6 | Melacak Posisi Pengemudi | Melihat posisi pengemudi pada peta secara real-time |
+| UC7 | Melihat Riwayat Pesanan | Daftar perjalanan sebelumnya |
+| UC8 | Membatalkan Pesanan | Membatalkan pesanan sebelum pengemudi tiba |
+
+### 🚗 Pengemudi (Driver)
+
+| # | Use Case | Deskripsi |
+|---|----------|-----------|
+| UC1 | Registrasi Akun | Mendaftar sebagai pengemudi |
+| UC2 | Login | Masuk menggunakan nomor HP + PIN |
+| UC9 | Toggle Online/Offline | Mengubah status ketersediaan (cek saldo ≥ minimum) |
+| UC10 | Menerima Notifikasi | Mendapat alert audio + visual saat ada pesanan baru |
+| UC11 | Menerima/Menolak Pesanan | Memilih apakah ingin mengambil pesanan |
+| UC12 | Navigasi ke Titik Jemput | Peta menunjukkan rute ke lokasi penumpang |
+| UC13 | Memulai Perjalanan | Konfirmasi penumpang sudah naik |
+| UC14 | Menyelesaikan Perjalanan | Konfirmasi tiba di tujuan → trigger potong komisi |
+| UC15 | Melihat Saldo & Mutasi | Cek saldo deposit dan riwayat potongan/top-up |
+| UC16 | Mengirim Lokasi GPS | GPS dikirim ke Firebase setiap 5 detik saat online |
+
+### 🖥️ Admin
+
+| # | Use Case | Deskripsi |
+|---|----------|-----------|
+| UC2 | Login | Masuk ke dashboard admin |
+| UC17 | Mengelola Data Pengemudi | Lihat daftar, edit, dan kelola pengemudi |
+| UC18 | Top-up Saldo Pengemudi | Menambah saldo setelah menerima transfer tunai |
+| UC19 | Suspend/Aktifkan Pengemudi | Menonaktifkan pengemudi bermasalah |
+| UC20 | Monitoring Pesanan | Melihat pesanan aktif dan histori real-time |
+| UC21 | Melihat Log Mutasi | Audit trail semua transaksi saldo (buku kas) |
+| UC22 | Statistik Dashboard | Total revenue, pesanan per hari, pengemudi aktif |
+
+### ⚙️ Proses Sistem Otomatis
+
+| # | Use Case | Relasi | Trigger |
+|---|----------|--------|---------|
+| UC23 | Kalkulasi Harga | `«include»` oleh UC5 | Saat penumpang memesan |
+| UC24 | Broadcast ke Pengemudi Terdekat | `«include»` oleh UC5 | Saat pesanan dibuat, cari driver dalam radius 3 KM |
+| UC25 | Potong Komisi Saldo | `«include»` oleh UC14 | Saat perjalanan diselesaikan |
+| UC26 | Blokir Go-Online | `«extend»` dari UC9 | Jika saldo pengemudi = Rp 0 |
