@@ -15,11 +15,12 @@ from app.config import get_settings
 settings = get_settings()
 
 # Detect if cloud database (needs SSL)
-_parsed = urlparse(settings.DATABASE_URL)
+_clean_db_url = settings.DATABASE_URL.strip()
+_parsed = urlparse(_clean_db_url)
 _is_cloud = "tidbcloud.com" in (_parsed.hostname or "") or "neon.tech" in (_parsed.hostname or "")
 
 # Remove ssl params from URL (we handle SSL via connect_args)
-_db_url = settings.DATABASE_URL.split("?")[0]
+_db_url = _clean_db_url.split("?")[0]
 
 # Build connect_args with SSL if cloud
 _connect_args = {}
