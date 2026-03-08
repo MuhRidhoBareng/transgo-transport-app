@@ -1,0 +1,16 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "https://muhridhobareng-transgo-backend.hf.space/api/$1"
+        },
+        {
+            "source": "/uploads/(.*)",
+            "destination": "https://muhridhobareng-transgo-backend.hf.space/uploads/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
