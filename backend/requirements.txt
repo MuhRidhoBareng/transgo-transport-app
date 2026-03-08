@@ -26,5 +26,8 @@ firebase-admin==6.6.0
 # HTTP Client
 httpx==0.28.1
 
+# File upload
+python-multipart==0.0.12
+
 # Dev
 python-dotenv==1.0.1

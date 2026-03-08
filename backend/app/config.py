@@ -39,8 +39,12 @@ class Settings(BaseSettings):
     # OSRM
     OSRM_BASE_URL: str = "https://router.project-osrm.org"
 
-    # CORS
-    CORS_ORIGINS: list[str] = ["http://localhost:3001", "http://localhost:3002", "http://localhost:3003"]
+    # CORS — accepts JSON string from env var or defaults to localhost
+    CORS_ORIGINS: list[str] = [
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "http://localhost:3003",
+    ]
 
     model_config = {
         "env_file": ".env",
